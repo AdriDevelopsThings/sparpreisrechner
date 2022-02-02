@@ -7,7 +7,6 @@ COPY ./yarn.lock ./yarn.lock
 RUN yarn install --pure-lockfile
 
 COPY ./pages ./pages
-COPY ./public ./public
 COPY ./styles ./styles
 COPY ./utils ./utils
 
