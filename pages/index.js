@@ -1,7 +1,11 @@
-import { Divider, Form, Input, Result, Switch } from 'antd'
+import React from "react" 
+React.useLayoutEffect = React.useEffect 
+import { Divider, Form, Input, Result, Switch, Typography } from 'antd'
 import Head from 'next/head'
 import { useState } from 'react'
 import { calculateMinimalProbForSparpreis } from '../utils/rechner.js'
+
+const { Title, Text } = Typography
 
 function SparpreisLohntSich() {
   return <Result status="success" title="Nimm den Sparpreis, er lohnt sich in diesem Fall."/>
@@ -14,7 +18,6 @@ function SparpreisLohntSichNicht() {
 
 function LohntSichWennProb({ prob }) {
   return <Result status="warning" title={`Der Sparpreis lohnt sich nur wenn die Wahrscheinlichkeit, dass du die Reise nicht antrittst, ${Math.round(prob * 100)}% oder mehr beträgt.`}/>
-  return <p>Der Sparpreis lohnt sich wenn die Wahrscheinlichkeit eines nicht Antreten an der Reise über {Math.round(prob*100)}% beträgt.</p>
 }
 
 export default function Home() {
@@ -24,18 +27,19 @@ export default function Home() {
   const [nahverkehrTicketpreis, setNahverkehrTicketpreis] = useState("-1")
 
   const minimalProb = calculateMinimalProbForSparpreis(parseFloat(smallerTicketpreis), parseFloat(higherTicketpreis), parseFloat(nahverkehrTicketpreis != "-1" ? nahverkehrTicketpreis : "0"))
-  console.log(minimalProb)
 
   return (
     <div>
       <Head>
-        <title></title>
+        <title>Supersparpreisrechner</title>
       </Head>
-      <div style={{ margin: '1rem' }}>
+      <div style={{ maxWidth: 1000, margin: "auto", padding: 20}}>
+        <Title>Sparpreisrechner ICE/IC</Title>
+        <Text>Du möchtest wissen ob du lieber den Supersparpreis oder den Sparpreis nehmen solltest? Gib hier die Preise an und erhalte das Ergebnis.</Text>
         <Form
-          labelCol={{ span: 4 }}
+          labelCol={{ span: 6 }}
           wrapperCol={{ span: 10 }}
-
+          style={{marginTop: 20}}
         >
           <Form.Item label="Supersparpreis" name="smallerTicketpreis" rules={[{ required: true, message: 'Bitte gib den Supersparpreis an.'}]}>
             <Input type="number" value={smallerTicketpreis} onChange={(e) => setSmallerTicketpreis(e.target.value)}/>
