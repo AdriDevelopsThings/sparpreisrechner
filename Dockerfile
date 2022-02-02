@@ -12,7 +12,6 @@ COPY ./styles ./styles
 COPY ./utils ./utils
 
 COPY ./next.config.js .
-COPY ./tsconfig.json .
 
 
 RUN yarn next build
